@@ -16,6 +16,8 @@ const TaskItem = ({ props }) => {
     );
 };
 
+export default TaskItem;
+
 // import React from "react";
 
 // // Component of the Class
@@ -36,5 +38,3 @@ const TaskItem = ({ props }) => {
 //         );
 //     }
 // }
-
-export default TaskItem;

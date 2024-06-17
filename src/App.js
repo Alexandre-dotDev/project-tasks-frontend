@@ -1,5 +1,6 @@
-// import React from "react";
 import { useState, useRef, useEffect } from "react";
+import axios from "axios";
+
 import TaskItem from "./components/TaskItem";
 
 // Component of the Class
@@ -68,17 +69,6 @@ import TaskItem from "./components/TaskItem";
 
 // Component of the Function
 const App = () => {
-    const mounted = useRef(false);
-
-    useEffect(() => {
-        if (mounted.current === false) {
-            mounted.current = true;
-        } else {
-            console.log(`Component was updated with component function`);
-        }
-    });
-
-    const [message, setMessage] = useState("Hello world!");
     const [tasks, setTasks] = useState([
         {
             id: "1",
@@ -92,27 +82,26 @@ const App = () => {
         },
     ]);
 
-    const handleChangeMessage = () => {
-        setMessage("Olá mundo");
+    const fetchTasks = async () => {
+        try {
+            const { data } = await axios.get("http://localhost:3333/tasks");
+            setTasks(data);
+        } catch (error) {
+            throw new Error(error);
+        }
     };
+    useEffect(() => {
+        fetchTasks();
+    }, []);
 
-    const handleClearTasks = () => {
-        setTasks([]);
-    };
     return (
         <>
-            <h1>{message}</h1>
-            <button onClick={handleChangeMessage}>Change message</button>
-
-            <div>
-                {tasks.map((task) => (
-                    <>
-                        <TaskItem key={task.id} props={task} />
-                        <p>{task.isCompleted ? "Completo" : "Não completo"}</p>
-                    </>
-                ))}
-                <button onClick={handleClearTasks}>Clear tasks</button>
-            </div>
+            {tasks.map((task) => (
+                <div>
+                    <TaskItem key={task.id} props={task} />
+                    <p>{task.isCompleted ? "Completo" : "Não completo"}</p>
+                </div>
+            ))}
         </>
     );
 };

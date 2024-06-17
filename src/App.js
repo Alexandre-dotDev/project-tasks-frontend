@@ -7,6 +7,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.handleChangeMessage = this.handleChangeMessage.bind(this);
+        this.handleStateTasks = this.handleStateTasks.bind(this);
         this.state = {
             tasks: [
                 {
@@ -23,11 +24,22 @@ class App extends React.Component {
             message: "Hello world in class",
         };
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log(prevState);
+        console.log("Component was updated");
+    }
     handleChangeMessage = () => {
         this.setState({
             message: "Olá mundo na classe",
         });
     };
+
+    handleStateTasks() {
+        this.setState({
+            tasks: [],
+        });
+    }
 
     render() {
         return (
@@ -47,6 +59,7 @@ class App extends React.Component {
                             </p>
                         </>
                     ))}
+                    <button onClick={this.handleStateTasks}>Clear task</button>
                 </div>
             </>
         );

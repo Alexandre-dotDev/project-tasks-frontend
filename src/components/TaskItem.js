@@ -1,13 +1,5 @@
-import { useEffect } from "react";
-
 // Component of the Function
 const TaskItem = ({ props }) => {
-    useEffect(() => {
-        console.log("Component was mounted with component function");
-        return () => {
-            console.log("I will unmounted with component");
-        };
-    }, []);
     return (
         <>
             <h1>{props.description}</h1>

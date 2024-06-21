@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import TaskItem from "./components/TaskItem";
@@ -84,7 +84,8 @@ const App = () => {
 
     const fetchTasks = async () => {
         try {
-            const { data } = await axios.get("http://localhost:3333/tasks");
+            const url = "https://project-tasks.onrender.com/tasks";
+            const { data } = await axios.get(url);
             setTasks(data);
         } catch (error) {
             throw new Error(error);

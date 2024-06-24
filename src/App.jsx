@@ -1,7 +1,4 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-
-import TaskItem from "./components/TaskItem";
+import Tasks from "./components/Tasks";
 
 // Component of the Class
 // class App extends React.Component {
@@ -69,40 +66,9 @@ import TaskItem from "./components/TaskItem";
 
 // Component of the Function
 const App = () => {
-    const [tasks, setTasks] = useState([
-        {
-            id: "1",
-            description: "Estudar Programação",
-            isCompleted: false,
-        },
-        {
-            id: "2",
-            description: "Estudar Lógica",
-            isCompleted: true,
-        },
-    ]);
-
-    const fetchTasks = async () => {
-        try {
-            const url = "https://project-tasks.onrender.com/tasks";
-            const { data } = await axios.get(url);
-            setTasks(data);
-        } catch (error) {
-            throw new Error(error);
-        }
-    };
-    useEffect(() => {
-        fetchTasks();
-    }, []);
-
     return (
         <>
-            {tasks.map((task) => (
-                <div>
-                    <TaskItem key={task.id} props={task} />
-                    <p>{task.isCompleted ? "Completo" : "Não completo"}</p>
-                </div>
-            ))}
+            <Tasks />
         </>
     );
 };
